@@ -33,14 +33,14 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        @article = Article&.find(params[:id])
+        @article = Article.find(params[:id])
         if @article&.user_id != session[:user_id]
             redirect_to new_session_path
         end
     end
 
     def update
-        @article = Article&.find(params[:id])
+        @article = Article.find(params[:id])
         if @article.update(article_params)
             redirect_to @article
         else
@@ -49,7 +49,7 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
-        @article = Article&.find(params[:id])
+        @article = Article.find(params[:id])
         if @article.user_id != session[:user_id]
             redirect_to new_session_path
         else
