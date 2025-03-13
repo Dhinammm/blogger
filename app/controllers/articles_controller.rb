@@ -2,12 +2,12 @@ class ArticlesController < ApplicationController
     allow_unauthenticated_access only: %i[ index show not_found_method ]
 
     def index
-        @article = Article&.all
+        @article = Article.all
     end
 
     def show
         begin
-            @article = Article&.find(params[:id])
+            @article = Article.find(params[:id])
             @user = @article.user_id
         rescue
             not_found_method
