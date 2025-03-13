@@ -27,6 +27,11 @@ class UsersController < ApplicationController
 
     def destroy
         user = User.find(params[:id])
+        if current_user != user
+            sign_out current_user
+            redirect_to new_user_session_path
+            return
+        end
         user.destroy
         redirect_to users_path
     end

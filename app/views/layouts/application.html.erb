@@ -23,6 +23,9 @@
   </head>
 
   <body>
-    <%= yield %>
+      <%= yield %>
+      <%= link_to "Home", root_path %>
+      <%= button_to "Log in", new_user_session_path if !user_signed_in? %>
+      <%= button_to "Log out", destroy_user_session_path, method: :delete if user_signed_in? %>
   </body>
 </html>
