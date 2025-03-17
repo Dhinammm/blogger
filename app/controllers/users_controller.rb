@@ -26,9 +26,13 @@ class UsersController < ApplicationController
     end
 
     def destroy
-        user = User.find(params[:id])
-        user.destroy
-        redirect_to users_path
+        begin
+            user = User.find(params[:id])
+            user.destroy
+            redirect_to users_path
+        rescue
+            render file: Rails.public_path.join('404.html'), status: :not_found, layout: true
+        end
     end
 
     private
