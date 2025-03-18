@@ -1,5 +1,9 @@
 <h1>Welcome to Articles page</h1>
-<%= link_to "New article", users_path %><br>
+<% if user_signed_in? %>
+    <%= link_to "New article", user_path(current_user) %>
+<% else %>
+    <%= link_to "New article", new_user_session_path %>
+<% end %><br>
 <% @article&.each do |article| %>
     <a href="/articles/<%= article.id %>">
       <%= article.title %>
