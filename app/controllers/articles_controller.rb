@@ -6,7 +6,8 @@ class ArticlesController < ApplicationController
     def show
         begin
             @article = Article&.find(params[:id])
-            @user = @article.user_id
+            user = @article.user_id
+            @user = User.find(user)
         rescue
             not_found_method
         end
@@ -65,6 +66,9 @@ class ArticlesController < ApplicationController
         end
         article.destroy
         redirect_to user_path(user)
+    end
+
+    def login
     end
 
     def not_found_method
