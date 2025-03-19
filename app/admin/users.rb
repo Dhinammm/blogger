@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
   # Specify parameters which should be permitted for assignment
-  permit_params :name, :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at
+  permit_params :name, :email, :password
   # or consider:
   #
   # permit_params do
@@ -16,12 +16,6 @@ ActiveAdmin.register User do
   filter :id
   filter :name
   filter :email
-  filter :created_at
-  filter :updated_at
-  filter :encrypted_password
-  filter :reset_password_token
-  filter :reset_password_sent_at
-  filter :remember_created_at
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -31,10 +25,6 @@ ActiveAdmin.register User do
     column :email
     column :created_at
     column :updated_at
-    column :encrypted_password
-    column :reset_password_token
-    column :reset_password_sent_at
-    column :remember_created_at
     actions
   end
 
@@ -44,12 +34,6 @@ ActiveAdmin.register User do
       row :id
       row :name
       row :email
-      row :created_at
-      row :updated_at
-      row :encrypted_password
-      row :reset_password_token
-      row :reset_password_sent_at
-      row :remember_created_at
     end
   end
 
@@ -59,10 +43,8 @@ ActiveAdmin.register User do
     f.inputs do
       f.input :name
       f.input :email
-      f.input :encrypted_password
-      f.input :reset_password_token
-      f.input :reset_password_sent_at
-      f.input :remember_created_at
+      f.input :password
+      f.input :confirm_password
     end
     f.actions
   end

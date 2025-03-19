@@ -5,10 +5,11 @@ class User < ApplicationRecord
         :recoverable, :rememberable, :validatable
     has_many :articles, dependent: :destroy
     def self.ransackable_attributes(auth_object = nil)
-        ["name", "id", "id_value", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at"]
+        ["name", "id", "id_value", "email", "password"]
     end
 
     def self.ransackable_associations(auth_object = nil)
         ["articles"]
     end
+    validates :name, presence: true
 end

@@ -2,10 +2,11 @@
 <%= link_to "New article", users_path %><br>
 <% @article&.each do |article| %>
     <a href="/articles/<%= article.id %>">
-      <%= article.title %>
-      <br>
+        <%= article.title %>
+        <br>
     </a>
 <% end %><br>
 <a href = "/users">View users<a><br>
+<%= link_to "Admin user", admin_root_path %><br>
 <%= link_to "Sign up", new_user_registration_path %>
 <br>
