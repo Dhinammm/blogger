@@ -7,6 +7,11 @@ class ArticlesController < ApplicationController
         begin
             @article = Article&.find(params[:id])
             @user = User.find(@article.user_id)
+            @blogcomment = BlogComment.where(article_id: params[:id])
+            puts "----------------------"
+            puts @blogcomment
+            puts "----------------------"
+            @comment = BlogComment.new
         rescue
             not_found_method
         end

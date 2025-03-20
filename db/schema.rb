@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_19_062751) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_19_071437) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -45,6 +45,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_19_062751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "blog_comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_blog_comments_on_article_id"
+    t.index ["user_id"], name: "index_blog_comments_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -82,5 +92,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_19_062751) do
   end
 
   add_foreign_key "articles", "users"
+  add_foreign_key "blog_comments", "users"
   add_foreign_key "sessions", "users"
 end
