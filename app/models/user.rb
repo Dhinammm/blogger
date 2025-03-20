@@ -4,6 +4,7 @@ class User < ApplicationRecord
     devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
     has_many :articles, dependent: :destroy
+    has_many :blog_comments, dependent: :destroy
     def self.ransackable_attributes(auth_object = nil)
         ["name", "id", "id_value", "email", "password"]
     end

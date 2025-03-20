@@ -1,16 +1,13 @@
 class ArticlesController < ApplicationController
     def index
-        @article = Article&.all
+        @article = Article.all
     end
 
     def show
         begin
             @article = Article&.find(params[:id])
-            @user = User.find(@article.user_id)
-            @blogcomment = BlogComment.where(article_id: params[:id])
-            puts "----------------------"
-            puts @blogcomment
-            puts "----------------------"
+            @user = User&.find(@article.user_id)
+            @blogcomment = BlogComment&.where(article_id: params[:id])
             @comment = BlogComment.new
         rescue
             not_found_method
@@ -37,9 +34,9 @@ class ArticlesController < ApplicationController
 
     def edit
         begin
-            @article = Article.find(params[:id])
+            @article = Article&.find(params[:id])
             id = @article.user_id
-            user = User.find(id)
+            user = User&.find(id)
             if current_user != user
                 sign_out current_user
                 redirect_to new_user_session_path
@@ -51,7 +48,7 @@ class ArticlesController < ApplicationController
     end
 
     def update
-        @article = Article.find(params[:id])
+        @article = Article&.find(params[:id])
         if @article.update(article_params)
             redirect_to @article
         else
@@ -60,9 +57,9 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
-        article = Article.find(params[:id])
+        article = Article&.find(params[:id])
         id = article.user_id
-        user = User.find(id)
+        user = User&.find(id)
         if current_user != user
             sign_out current_user
             redirect_to new_user_session_path

@@ -14,7 +14,7 @@
     <p>No comments yet.</p>
 <% end %>
 <% if user_signed_in? %>
-    <%= form_with model: [@article,@comment] do |form| %>
+    <%= form_with model: [@article, @comment] do |form| %>
         <h2>Write your content here</h2><br>
         <%= form.text_area(:content, size: '150x10') %>
         <%= form.submit %>
