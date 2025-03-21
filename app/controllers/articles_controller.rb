@@ -1,8 +1,8 @@
 class ArticlesController < ApplicationController
-    allow_unauthenticated_access only: %i[ index show not_found_method ]
+    allow_unauthenticated_access only: %i[ index show not_found ]
 
     def index
-        @article = Article.all
+        @articles = Article.all
     end
 
     def show
@@ -10,16 +10,20 @@ class ArticlesController < ApplicationController
             @article = Article.find(params[:id])
             @user = @article.user_id
         rescue
-            not_found_method
+            not_found
         end
     end
 
     def new
         user = User.find_by(id: params[:user_id])
-        if user.id != session[:user_id]
-            redirect_to new_session_path
-        else
-            @article = Article.new
+        begin
+            if user.id != session[:user_id]
+                redirect_to new_session_path
+            else
+                @article = Article.new
+            end
+        rescue
+            not_found
         end
     end
 
@@ -40,11 +44,15 @@ class ArticlesController < ApplicationController
     end
 
     def update
-        @article = Article.find(params[:id])
-        if @article.update(article_params)
-            redirect_to @article
-        else
-            render :edit, status: :unprocessable_entity
+        begin
+            @article = Article.find(params[:id])
+            if @article.update(article_params)
+                redirect_to @article
+            else
+                render :edit, status: :unprocessable_entity
+            end
+        rescue
+            not_found
         end
     end
 
@@ -64,11 +72,12 @@ class ArticlesController < ApplicationController
         end
     end
 
-    def not_found_method
+    def not_found
         render file: Rails.public_path.join('404.html'), status: :not_found, layout: true
     end
 
     private
+
     def article_params
         params.expect(article: [:title, :content, :user_id])
     end
