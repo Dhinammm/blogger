@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :articles do
         resources :blog_comments, only: %i[create destroy]
     end
-    match '*unmatched', to: 'articles#not_found_method', via: :all
+    match '*unmatched', to: 'articles#not_found', via: :all
     # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
     # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
     # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
