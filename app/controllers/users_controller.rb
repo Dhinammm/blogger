@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
     def index
-        @user = User.all
+        @users = User.all
     end
 
     def show
         begin
             @user = User.find(params[:id])
-            @article = Article.where("user_id = ?", params[:id])
+            @articles = Article.where("user_id = ?", params[:id])
         rescue
             render file: Rails.public_path.join('404.html'), status: :not_found, layout: true
         end
