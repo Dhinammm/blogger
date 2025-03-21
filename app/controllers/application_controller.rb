@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
         devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
         devise_parameter_sanitizer.permit(:account_update, keys: [:name])
     end
+    #protect_from_forgery with: :null_session
+    protect_from_forgery with: :exception, unless: -> { request.path.start_with?('/auth/') }
+    # Skip authenticity token verification for OmniAuth
+    skip_before_action :verify_authenticity_token, if: -> { request.path.starts_with?('/admin/auth/go') }
 end

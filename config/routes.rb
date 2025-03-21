@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
    #resources :blog_comments
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :admin_users, ActiveAdmin::Devise.config.merge(
+    controllers: { omniauth_callbacks: 'admin_users/omniauth_callbacks' }
+  )
   ActiveAdmin.routes(self)
   devise_for :users
   devise_for :views
