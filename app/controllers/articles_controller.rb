@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
     def index
-        @article = Article.all
+        @articles = Article.all
     end
 
     def show
@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
             @article = Article.find(params[:id])
             @user = @article.user_id
         rescue
-            not_found_method
+            not_found
         end
     end
 
@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
         begin
             @article = Article.find(params[:id])
         rescue
-            not_found_method
+            not_found
         end
     end
 
@@ -49,11 +49,11 @@ class ArticlesController < ApplicationController
             article.destroy
             redirect_to user_path(user)
         rescue
-            not_found_method
+            not_found
         end
     end
 
-    def not_found_method
+    def not_found
         render file: Rails.public_path.join('404.html'), status: :not_found, layout: true
     end
 
